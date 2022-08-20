@@ -1,10 +1,9 @@
-import { NavLink } from 'react-router-dom';
+import { Title } from '../../components/Title/Title';
+
 export const Main: React.FC = () => {
   return (
     <div className="main">
-      <h1>Главная</h1>
-      <NavLink to="/authorization">Авторизация</NavLink>
-      <NavLink to="/contacts">Контакты</NavLink>
+      <Title text="Главная" />
     </div>
   );
 };
