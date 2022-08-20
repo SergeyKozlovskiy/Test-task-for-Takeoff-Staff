@@ -4,11 +4,13 @@ import { LinkMenu } from '../LinkMenu/LinkMenu';
 import { useCookies } from 'react-cookie';
 import './Header.sass';
 import { authSlice } from '../../store/reducers/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 export const Header: React.FC = () => {
   const { isLogin, user } = useAppSelector((state) => state.authSlice);
   const [, , removeCookie] = useCookies(['id', 'name', 'email', 'token']);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const logOut = () => {
     removeCookie('id');
@@ -17,6 +19,7 @@ export const Header: React.FC = () => {
     removeCookie('token');
     dispatch(authSlice.actions.setUser(null));
     dispatch(authSlice.actions.setIsLogin(false));
+    navigate('/');
   };
 
   return (

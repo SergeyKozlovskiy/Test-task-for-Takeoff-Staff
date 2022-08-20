@@ -6,12 +6,13 @@ import { Contacts } from './pages/Contacts/Contacts';
 import { Main } from './pages/Main/Main';
 import { Header } from './components/Header/Header';
 import { useCookies } from 'react-cookie';
-import { useAppDispatch } from './hooks/redux';
+import { useAppDispatch, useAppSelector } from './hooks/redux';
 import { authSlice } from './store/reducers/authSlice';
 import './App.sass';
 
 function App() {
   const dispatch = useAppDispatch();
+  const { isLogin } = useAppSelector((state) => state.authSlice);
   const [cookie] = useCookies(['id', 'name', 'email', 'token']);
 
   const checkLogin = () => {
@@ -42,7 +43,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="authorization" element={<Authorization />} />
-        <Route path="contacts" element={<Contacts />} />
+        <Route path="contacts" element={isLogin ? <Contacts /> : <Page404 />} />
         <Route path="*" element={<Page404 />} />
       </Routes>
     </div>

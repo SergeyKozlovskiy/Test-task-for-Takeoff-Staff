@@ -1,6 +1,6 @@
 import { Table } from 'antd';
 import { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { useAppDispatch } from '../../hooks/redux';
 import { getContacts } from '../../store/reducers/contactsSlice';
 import { Contact, DataTable } from '../../types/types';
 
