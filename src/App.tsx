@@ -42,7 +42,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="authorization" element={<Authorization />} />
+        <Route path="authorization" element={!isLogin ? <Authorization /> : <Page404 />} />
         <Route path="contacts" element={isLogin ? <Contacts /> : <Page404 />} />
         <Route path="*" element={<Page404 />} />
       </Routes>

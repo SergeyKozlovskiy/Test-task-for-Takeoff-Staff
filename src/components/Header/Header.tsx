@@ -26,12 +26,14 @@ export const Header: React.FC = () => {
     <header className="header">
       <ul>
         <LinkMenu path="/" text="Главная" />
-        <LinkMenu path="/authorization" text="Авторизация" />
+        {!isLogin ? <LinkMenu path="/authorization" text="Авторизация" /> : null}
         {isLogin ? <LinkMenu path="/contacts" text="Контакты" /> : null}
       </ul>
       {isLogin && user ? (
         <>
-          <div className="">Здравствуйте, {user.user.name}</div>
+          <div className="header-greetings">
+            Здравствуйте, <span>{user.user.name}</span>
+          </div>
           <Button onClick={logOut}>Выйти</Button>
         </>
       ) : null}

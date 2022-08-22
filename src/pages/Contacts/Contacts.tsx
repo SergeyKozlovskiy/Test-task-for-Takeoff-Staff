@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useAppDispatch } from '../../hooks/redux';
 import { getContacts } from '../../store/reducers/contactsSlice';
 import { Contact, DataTable } from '../../types/types';
+import './Contacts.sass';
 
 export const Contacts: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -61,6 +62,14 @@ export const Contacts: React.FC = () => {
   }, []);
 
   return (
-    <Table columns={columns} dataSource={data} pagination={{ total: data?.length, pageSize: 5 }} />
+    <div className="contacts">
+      <div className="contacts-table">
+        <Table
+          columns={columns}
+          dataSource={data}
+          pagination={{ total: data?.length, pageSize: 5 }}
+        />
+      </div>
+    </div>
   );
 };

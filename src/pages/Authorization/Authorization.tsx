@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useAppDispatch } from '../../hooks/redux';
 import { Button, Input } from 'antd';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
-import { Title } from '../../components/Title/Title';
 import { signIn, signUp } from '../../store/reducers/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { User } from '../../types/types';
@@ -60,8 +59,8 @@ export const Authorization: React.FC = () => {
   };
 
   return (
-    <>
-      {isRegistration ? <Title text="Регистрация" /> : <Title text="Вход" />}
+    <div className="auth">
+      <h2 className="auth-title">{isRegistration ? 'Регистрация' : 'Вход'}</h2>
       <form className="form" onSubmit={handleSubmit(onSubmit)} autoComplete="off">
         {isRegistration ? (
           <Controller
@@ -169,17 +168,13 @@ export const Authorization: React.FC = () => {
             );
           }}
         />
-        <Button
-          className="form-link"
-          type="link"
-          onClick={() => setIsRegistration(!isRegistration)}
-        >
+        <button className="form-link" onClick={() => setIsRegistration(!isRegistration)}>
           {isRegistration ? 'Войти' : 'Зарегестрироваться'}
-        </Button>
+        </button>
         <Button disabled={!isValid} type="primary" htmlType="submit" className="form-btn">
           {isRegistration ? 'Зарегестрироваться' : 'Войти'}
         </Button>
       </form>
-    </>
+    </div>
   );
 };
