@@ -16,7 +16,6 @@ const initialState: InitialState = {
 export const getContacts = createAsyncThunk('getContacts', async (data, { rejectWithValue }) => {
   try {
     const response = await axios.get(URL.CONTACTS);
-    console.log(response.data);
     return response.data;
   } catch (e) {
     return rejectWithValue(e);

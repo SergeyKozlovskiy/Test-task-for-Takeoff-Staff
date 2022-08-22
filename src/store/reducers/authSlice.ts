@@ -25,7 +25,6 @@ export const signUp = createAsyncThunk(
         email: email,
         password: password,
       });
-      console.log(response.data);
       return response.data;
     } catch (e) {
       return rejectWithValue(e);
@@ -42,7 +41,6 @@ export const signIn = createAsyncThunk(
         email: email,
         password: password,
       });
-      console.log(response.data);
       return response.data;
     } catch (e) {
       return rejectWithValue(e);
