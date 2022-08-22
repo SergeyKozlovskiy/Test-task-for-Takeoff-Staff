@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAppDispatch } from '../../hooks/redux';
-import { Button, Input } from 'antd';
+import { Button, Input, Modal } from 'antd';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { signIn, signUp } from '../../store/reducers/authSlice';
 import { useNavigate } from 'react-router-dom';
@@ -19,6 +19,7 @@ type FormInputs = {
 export const Authorization: React.FC = () => {
   const [isRegistration, setIsRegistration] = useState(true);
   const [, setCookie] = useCookies(['id', 'name', 'email', 'token']);
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -31,6 +32,19 @@ export const Authorization: React.FC = () => {
     mode: 'onChange',
   });
 
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+    reset();
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+    reset();
+  };
   const saveData = (user: User) => {
     const {
       accessToken,
@@ -47,19 +61,31 @@ export const Authorization: React.FC = () => {
       const response = await dispatch(signUp({ name: name, email: email, password }));
       if (response.meta.requestStatus === 'fulfilled') {
         saveData(response.payload);
+        reset();
+        navigate('/');
+      } else {
+        showModal();
       }
     } else {
       const response = await dispatch(signIn({ email: email, password }));
       if (response.meta.requestStatus === 'fulfilled') {
         saveData(response.payload);
+        reset();
+        navigate('/');
       }
     }
-    reset();
-    navigate('/');
   };
 
   return (
     <div className="auth">
+      <Modal
+        title="Что то пошло не так..."
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <p>Ошибка при регистрации. Возможно пользователь с таким email уже зарегестрирован.</p>
+      </Modal>
       <h2 className="auth-title">{isRegistration ? 'Регистрация' : 'Вход'}</h2>
       <form className="form" onSubmit={handleSubmit(onSubmit)} autoComplete="off">
         {isRegistration ? (
