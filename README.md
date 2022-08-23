@@ -3,11 +3,12 @@
 
 ## Install
 1. git clone https://github.com/SergeyKozlovskiy/Test-task-for-Takeoff-Staff.git
+2. npm i
 
 ## Starting
 1. git switch develop
-2. npm start
-3. json-server db.json -m ./node_modules/json-server-auth
+2. json-server db.json -m ./node_modules/json-server-auth
+3. npm start
 
 ## Frameworks
 1. Redux Toolkit
