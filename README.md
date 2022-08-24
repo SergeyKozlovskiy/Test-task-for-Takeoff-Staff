@@ -1,4 +1,4 @@
-# Тестовое задание для Takeoff Staffs
+![test task](https://user-images.githubusercontent.com/56650160/186372473-db686f28-1545-4db0-bf13-35dac1655515.jpg)
 > node v16.13.2
 
 ## Install
