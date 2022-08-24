@@ -45,6 +45,7 @@ export const Authorization: React.FC = () => {
     setIsModalVisible(false);
     reset();
   };
+
   const saveData = (user: User) => {
     const {
       accessToken,

@@ -31,10 +31,11 @@ export type User = {
   };
 };
 export type DataTable = {
-  key: number;
-  name: string;
-  address: string;
-  phone: string;
-  email: string;
-  website: string;
+  id: number;
+  name: { name: string; id: number };
+  city: { city: string; id: number };
+  street: { street: string; id: number };
+  phone: { phone: string; id: number };
+  email: { email: string; id: number };
+  website: { website: string; id: number };
 };

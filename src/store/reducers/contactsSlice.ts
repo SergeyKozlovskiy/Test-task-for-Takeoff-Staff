@@ -22,6 +22,105 @@ export const getContacts = createAsyncThunk('getContacts', async (data, { reject
   }
 });
 
+export const createContact = createAsyncThunk(
+  'createContact',
+  async (
+    data: {
+      name: string;
+      street: string;
+      city: string;
+      phone: string;
+      email: string;
+      website: string;
+    },
+    { rejectWithValue }
+  ) => {
+    const { name, street, city, phone, email, website } = data;
+    try {
+      const response = await axios.post(
+        URL.CONTACTS,
+        {
+          name: name,
+          address: {
+            street: street,
+            city: city,
+          },
+          phone: phone,
+          email: email,
+          website: website,
+        },
+        {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      console.log(response.data);
+      return response.data;
+    } catch (e) {
+      return rejectWithValue(e);
+    }
+  }
+);
+
+export const changeContact = createAsyncThunk(
+  'createContact',
+  async (
+    data: {
+      name: string;
+      street: string;
+      city: string;
+      phone: string;
+      email: string;
+      website: string;
+      id: number;
+    },
+    { rejectWithValue }
+  ) => {
+    const { name, street, city, phone, email, website, id } = data;
+    try {
+      const response = await axios.put(
+        `${URL.CONTACTS}/${id}`,
+        {
+          name: name,
+          address: {
+            street: street,
+            city: city,
+          },
+          phone: phone,
+          email: email,
+          website: website,
+        },
+        {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      console.log(response.data);
+      return response.data;
+    } catch (e) {
+      return rejectWithValue(e);
+    }
+  }
+);
+
+export const deleteContact = createAsyncThunk(
+  'createContact',
+  async (data: { id: number }, { rejectWithValue }) => {
+    const { id } = data;
+    try {
+      const response = await axios.delete(`${URL.CONTACTS}/${id}`);
+      console.log(response.data);
+      return response.data;
+    } catch (e) {
+      return rejectWithValue(e);
+    }
+  }
+);
+
 export const contactsSlice = createSlice({
   name: 'contacts',
   initialState,
