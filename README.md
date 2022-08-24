@@ -3,7 +3,8 @@
 
 ## Install
 1. git clone https://github.com/SergeyKozlovskiy/Test-task-for-Takeoff-Staff.git
-2. npm i
+2. cd Test-task-for-Takeoff-Staff
+3. npm i
 
 ## Starting
 1. git switch develop
