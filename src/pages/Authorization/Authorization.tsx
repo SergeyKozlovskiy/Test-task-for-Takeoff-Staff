@@ -20,6 +20,7 @@ export const Authorization: React.FC = () => {
   const [isRegistration, setIsRegistration] = useState(true);
   const [, setCookie] = useCookies(['id', 'name', 'email', 'token']);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -39,11 +40,13 @@ export const Authorization: React.FC = () => {
   const handleOk = () => {
     setIsModalVisible(false);
     reset();
+    setErrorMessage('');
   };
 
   const handleCancel = () => {
     setIsModalVisible(false);
     reset();
+    setErrorMessage('');
   };
 
   const saveData = (user: User) => {
@@ -66,6 +69,9 @@ export const Authorization: React.FC = () => {
         navigate('/');
       } else {
         showModal();
+        setErrorMessage(
+          'Ошибка при регистрации. Возможно пользователь с такой почтой уже зарегестрирован'
+        );
       }
     } else {
       const response = await dispatch(signIn({ email: email, password }));
@@ -73,6 +79,9 @@ export const Authorization: React.FC = () => {
         saveData(response.payload);
         reset();
         navigate('/');
+      } else {
+        showModal();
+        setErrorMessage('Не удалось войти. Проверте логин и пароль и попробуйте еще раз.');
       }
     }
   };
@@ -85,7 +94,7 @@ export const Authorization: React.FC = () => {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <p>Ошибка при регистрации. Возможно пользователь с таким email уже зарегестрирован.</p>
+        <p>{errorMessage}</p>
       </Modal>
       <h2 className="auth-title">{isRegistration ? 'Регистрация' : 'Вход'}</h2>
       <form className="form" onSubmit={handleSubmit(onSubmit)} autoComplete="off">
@@ -195,8 +204,14 @@ export const Authorization: React.FC = () => {
             );
           }}
         />
-        <button className="form-link" onClick={() => setIsRegistration(!isRegistration)}>
-          {isRegistration ? 'Войти' : 'Зарегестрироваться'}
+        <button
+          className="form-link"
+          onClick={(event) => {
+            event.preventDefault();
+            setIsRegistration(!isRegistration);
+          }}
+        >
+          {isRegistration ? 'Вход' : 'Регистрация'}
         </button>
         <Button disabled={!isValid} type="primary" htmlType="submit" className="form-btn">
           {isRegistration ? 'Зарегестрироваться' : 'Войти'}

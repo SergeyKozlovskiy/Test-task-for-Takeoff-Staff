@@ -175,6 +175,17 @@
       "email": "asd@dfg.com",
       "website": "asdasdasd.com",
       "id": 10
+    },
+    {
+      "name": "Petrovich",
+      "address": {
+        "street": "Gagarina",
+        "city": "Vologda"
+      },
+      "phone": "0000000000",
+      "email": "aaaa@asd.com",
+      "website": "Petrovich.com",
+      "id": 11
     }
   ]
 }
